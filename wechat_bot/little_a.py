@@ -6,18 +6,15 @@ from wxpy import *
 
 
 bot = Bot()
-coinstats_url = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=1000'
+coinstats_url = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=2000'
 crypto_stats = {}
 last_update = 0.0
 
 reply_template = """{}
-price: {}
-1hour: {}%
-1day: {}%
-1week: {}%
-
-(=^o^=)
-meow~
+Price : ${}
+1H : {}%
+24H : {}%
+7D: {}%
 """
 
 
@@ -26,8 +23,9 @@ def refresh_crypto_price():
   if not response.ok or 'coins' not in response.json():
     return
   for entry in response.json()['coins']:
-    symbol = str(entry['symbol'])
-    crypto_stats[symbol] = entry
+    symbol = str(entry['symbol']).upper()
+    text = crypto_info_formatter(entry)
+    crypto_stats[symbol] = text
   last_update = time.time()
 
 @bot.register()
@@ -36,7 +34,7 @@ def print_others(msg):
     return
   if time.time() - last_update > 30.0:
     refresh_crypto_price()
-  msg.chat.send(crypto_info_formatter(crypto_stats[msg.text.upper()]))
+  msg.chat.send(crypto_stats[msg.text.upper()])
 
 def crypto_info_formatter(json):
   return reply_template.format(json[u'symbol'], json[u'price'], json[u'priceChange1h'], json[u'priceChange1d'], json[u'priceChange1w'])
@@ -44,4 +42,4 @@ def crypto_info_formatter(json):
 if __name__ == '__main__':
   refresh_crypto_price()
   while True:
-    time.sleep(10000000)
+    time.sleep(1000000000)
