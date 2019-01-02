@@ -30,11 +30,12 @@ def refresh_crypto_price():
 
 @bot.register()
 def print_others(msg):
-  if msg.text.upper() not in crypto_stats:
+  msg_text = msg.text.strip().upper()
+  if msg_text not in crypto_stats:
     return
   if time.time() - last_update > 30.0:
     refresh_crypto_price()
-  msg.chat.send(crypto_stats[msg.text.upper()])
+  msg.chat.send(crypto_stats[msg_text])
 
 def crypto_info_formatter(json):
   return reply_template.format(json[u'symbol'], json[u'price'], json[u'priceChange1h'], json[u'priceChange1d'], json[u'priceChange1w'])
@@ -42,4 +43,4 @@ def crypto_info_formatter(json):
 if __name__ == '__main__':
   refresh_crypto_price()
   while True:
-    time.sleep(1000000000)
+    time.sleep(100000)
