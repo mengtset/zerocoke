@@ -5,7 +5,7 @@ import requests
 from wxpy import *
 
 
-bot = Bot()
+bot = Bot(console_qr=True)
 coinstats_url = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=2000'
 crypto_stats = {}
 last_update = 0.0
