@@ -17,7 +17,7 @@ last_update = 0.0
 reply_template = """币种: {} ({})
 价格 : ${}
 总市值: ${}
-市值排名: {}
+市值排名: 第{}
 涨跌
   1小时: {}
   1天    : {}
@@ -28,14 +28,50 @@ reply_template = """币种: {} ({})
 @bot.register()
 def respond(msg):
   msg_text = msg.text.strip().upper()
-  for name in zip(synonyms.keys(), synonyms.values()):
-    if name in msg_text:
-      if name in synonyms:
-        name = synonyms[name]
-      if name not in crypto_stats:
-        return
-      price = crypto_stats[name]
-      msg.chat.send(price)
+
+  # If the message looks like a URL, ignore it.
+  # This is because some coins may have very short symbols, like '0x', 'R',
+  # may trigger too many replies.
+  if 'HTTP://' in msg_text or 'HTTPS://' in msg_text:
+    return
+
+  names = set() 
+  for name, symbol in synonyms.items():
+    # Ignore too short symbols because it is easily triggered by mistake.
+    if len(name) >= 3 and name in msg_text:
+      names.add(name)
+    if len(symbol) >= 3 and symbol in msg_text:
+      names.add(symbol)
+
+  names = list(set(names))
+
+  # At this point, we may have coin names we don't want, e.g.
+  # When receiving 'Bitcoin', names here can be:
+  #     ['BITCOIN', 'TCOIN']
+  # When receiving 'ethereum', names here can be:
+  #     ['ETHEREUM', 'ETH', 'R']
+  # Match with longest one, remove others.
+  filtered_names = names[:]
+  for name in names:
+    for other_name in names:
+      if name == other_name:
+        continue
+      if name in other_name:
+        filtered_names.remove(name)
+  
+  # Now no literal duplicate, but may still have cases lile: ['ETHEREUM', 'ETH']
+  # Continue dedup
+  final_names = set()
+  for name in filtered_names:
+    if name in synonyms:
+      name = synonyms[name]
+    final_names.add(name)
+
+  for name in final_names:
+    if name not in crypto_stats:
+      continue 
+    price = crypto_stats[name]
+    msg.chat.send(price)
 
 
 def refresh_crypto_price():
