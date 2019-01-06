@@ -28,21 +28,14 @@ reply_template = """币种: {} ({})
 @bot.register()
 def respond(msg):
   msg_text = msg.text.strip().upper()
-  msg_content = msg.content.strip().upper()
-  
-  print(msg_text)
-  print(msg_content)
-
-  """
   for name in zip(synonyms.keys(), synonyms.values()):
-    if name in msg_text or name in msg_content:
+    if name in msg_text:
       if name in synonyms:
         name = synonyms[name]
       if name not in crypto_stats:
         return
       price = crypto_stats[name]
       msg.chat.send(price)
-  """
 
 
 def refresh_crypto_price():
