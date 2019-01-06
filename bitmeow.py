@@ -9,8 +9,9 @@ from wxpy import Bot
 
 
 bot = Bot(console_qr=True)
-coinstats_url = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=2000'
+coinstats_url = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=1000'
 crypto_stats = {}
+synonyms = {}
 last_update = 0.0
 
 reply_template = """币种: {} ({})
@@ -24,6 +25,17 @@ reply_template = """币种: {} ({})
 """
 
 
+@bot.register()
+def respond(msg):
+  msg_text = msg.text.strip().upper()
+  if msg_text in synonyms:
+    msg_text = synonyms[msg_text]
+  if msg_text not in crypto_stats:
+    return
+  price = crypto_stats[msg_text]
+  msg.chat.send(price)
+
+
 def refresh_crypto_price():
   response = requests.get(coinstats_url)
   if not response.ok or 'coins' not in response.json():
@@ -35,25 +47,57 @@ def refresh_crypto_price():
   last_update = time.time()
 
 
-@bot.register()
-def respond(msg):
-  msg_text = msg.text.strip().upper()
-  if msg_text not in crypto_stats:
+def get_synonyms():
+  response = requests.get(coinstats_url)
+  if not response.ok or 'coins' not in response.json():
     return
-  price = crypto_stats[msg_text]
-  msg.chat.send(price)
+  for entry in response.json()['coins']:
+    symbol = str(entry['symbol']).upper()
+    name = str(entry['name']).upper()
+    synonyms[name] = symbol
+
+  # TOP 18 coins' common Chinese names
+  synonyms[u'比特币'] = 'BTC'
+  synonyms[u'以太坊'] = 'ETH'
+  synonyms[u'瑞波币'] = 'XRP'
+  synonyms[u'瑞波'] = 'XRP'
+  synonyms[u'比特现金'] = 'BCH'
+  synonyms[u'柚子'] = 'EOS'
+  synonyms[u'恒星币'] = 'XLM'
+  synonyms[u'莱特币'] = 'LTC'
+  synonyms[u'泰达币'] = 'USDT'
+  synonyms[u'波场'] = 'TRX'
+  synonyms[u'波场币'] = 'TRX'
+  synonyms[u'艾达币'] = 'ADA'
+  synonyms[u'卡尔达诺'] = 'ADA'
+  synonyms[u'艾欧塔'] = 'MIOTA'
+  synonyms[u'埃欧塔'] = 'MIOTA'
+  synonyms[u'币安币'] = 'BNB'
+  synonyms[u'门罗币'] = 'XMR'
+  synonyms[u'达世币'] = 'DASH'
+  synonyms[u'新经币'] = 'XEM'
+  synonyms[u'以太币'] = 'ETC'
+  synonyms[u'以太经典'] = 'ETC'
+  synonyms[u'小蚁币'] = 'NEO'
+  synonyms[u'小蚁'] = 'NEO'
+
+  # Other interesting coins
+  synonyms[u'狗狗币'] = 'DOGE'
+  synonyms[u'狗币'] = 'DOGE'
+  synonyms[u'火币'] = 'HT'
+  synonyms[u'火币积分'] = 'HT'
 
 
 def crypto_info_formatter(json):
-  symbol = json[u'symbol']
-  name = json[u'name']
-  rank = json[u'rank']
-  market_cap = json[u'marketCap']
+  symbol = json['symbol']
+  price = json['price']
+  name = json['name']
+  rank = json['rank']
+  market_cap = json['marketCap']
   priceChange1h = str(json['priceChange1h'])
   priceChange1d = str(json['priceChange1d'])
   priceChange1w = str(json['priceChange1w'])
 
-  price = json[u'price']
   price = float(price)
   if price < 1.0 and price > 0.0:
     n_pow = math.ceil(float(-math.log(price, 10)))
@@ -93,8 +137,8 @@ def crypto_info_formatter(json):
 
 
 
-
 if __name__ == '__main__':
+  get_synonyms()
   while True:
     refresh_crypto_price()
     time.sleep(30)
