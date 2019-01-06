@@ -5,7 +5,7 @@
 import math
 import requests
 import time
-from wxpy import *
+from wxpy import Bot 
 
 
 bot = Bot(console_qr=True)
@@ -19,7 +19,7 @@ reply_template = """币种: {} ({})
 市值排名: {}
 涨跌
   1小时: {}
-  1天   : {}
+  1天    : {}
   1星期: {}
 """
 
@@ -36,7 +36,7 @@ def refresh_crypto_price():
 
 
 @bot.register()
-def print_others(msg):
+def respond(msg):
   msg_text = msg.text.strip().upper()
   if msg_text not in crypto_stats:
     return
