@@ -81,7 +81,7 @@ def parse_text_for_symbols(msg_text):
     return result
 
   names_and_symbols = set()
-  for piece in msg_text.split('#'):
+  for piece in msg_text.split('#')[1:]:
     longest_match_index = 0
     for i in range(1, len(piece) + 1):
       if piece[:i] in name2symbol.keys() or piece[:i] in name2symbol.values():
