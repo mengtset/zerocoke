@@ -5,178 +5,178 @@
 import math
 import requests
 import time
-from wxpy import Bot 
+import wxpy 
 
 
-bot = Bot(console_qr=True)
-coinstats_url = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=1000'
-crypto_stats = {}
-synonyms = {}
-last_update = 0.0
-
-reply_template = """币种: {} ({})
-价格 : ${}
-总市值: ${}
-市值排名: 第{}
+COINSTATS_URL = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=2000'
+REPLY_TEMPLATE = """币种          {} ({})
+价格          ${}
+总市值      ${}
+市值排名  第{}
 涨跌
-  1小时: {}
-  1天    : {}
-  1星期: {}
+  1小时    {}
+  1天        {}
+  1星期    {}
 """
+
+bot = wxpy.Bot(console_qr=True)
+symbol2stats = {}
+name2symbol = {}
+
+# TOP 18 coins' common Chinese names
+name2symbol[u'比特币'] = 'BTC'
+name2symbol[u'以太坊'] = 'ETH'
+name2symbol[u'瑞波币'] = 'XRP'
+name2symbol[u'瑞波'] = 'XRP'
+name2symbol[u'比特现金'] = 'BCH'
+name2symbol[u'柚子'] = 'EOS'
+name2symbol[u'恒星币'] = 'XLM'
+name2symbol[u'莱特币'] = 'LTC'
+name2symbol[u'泰达币'] = 'USDT'
+name2symbol[u'波场'] = 'TRX'
+name2symbol[u'波场币'] = 'TRX'
+name2symbol[u'艾达币'] = 'ADA'
+name2symbol[u'卡尔达诺'] = 'ADA'
+name2symbol[u'艾欧塔'] = 'MIOTA'
+name2symbol[u'埃欧塔'] = 'MIOTA'
+name2symbol[u'币安币'] = 'BNB'
+name2symbol[u'门罗币'] = 'XMR'
+name2symbol[u'达世币'] = 'DASH'
+name2symbol[u'新经币'] = 'XEM'
+name2symbol[u'以太币'] = 'ETC'
+name2symbol[u'以太经典'] = 'ETC'
+name2symbol[u'小蚁币'] = 'NEO'
+name2symbol[u'小蚁'] = 'NEO'
+# Other interesting coins
+name2symbol[u'狗狗币'] = 'DOGE'
+name2symbol[u'狗币'] = 'DOGE'
+name2symbol[u'火币'] = 'HT'
+name2symbol[u'火币积分'] = 'HT'
+# Common aliases
+name2symbol[u'BCHABC'] = 'BCH'
+name2symbol[u'BCHSV'] = 'BSV'
 
 
 @bot.register()
 def respond(msg):
   msg_text = msg.text.strip().upper()
+  for symbol in parse_text_for_symbols(msg_text):
+    if symbol in symbol2stats:
+      stats = symbol2stats[symbol]
+      msg.chat.send(stats)
 
-  # If the message looks like a URL, ignore it.
-  # This is because some coins may have very short symbols, like '0x', 'R',
-  # may trigger too many replies.
+
+def parse_text_for_symbols(msg_text):
+  result = set()
+  # Ignore if the message looks like a URL.
   if 'HTTP://' in msg_text or 'HTTPS://' in msg_text:
-    return
+    return result
 
-  names = set() 
-  for name, symbol in synonyms.items():
-    # Ignore too short symbols because it is easily triggered by mistake.
-    if len(name) >= 3 and name in msg_text:
-      names.add(name)
-    if len(symbol) >= 3 and symbol in msg_text:
-      names.add(symbol)
+  names_and_symbols = set()
+  for piece in msg_text.split('#'):
+    longest_match_index = 0
+    for i in range(1, len(piece) + 1):
+      if piece[:i] in name2symbol.keys() or piece[:i] in name2symbol.values():
+        longest_match_index = i
+    if longest_match_index > 0:
+      names_and_symbols.add(piece[:longest_match_index])
+  for name_or_symbol in names_and_symbols:
+    if name_or_symbol in name2symbol:
+      result.add(name2symbol[name_or_symbol])
+    else:
+      result.add(name_or_symbol)
 
-  names = list(set(names))
-
-  # At this point, we may have coin names we don't want, e.g.
-  # When receiving 'Bitcoin', names here can be:
-  #     ['BITCOIN', 'TCOIN']
-  # When receiving 'ethereum', names here can be:
-  #     ['ETHEREUM', 'ETH', 'R']
-  # Match with longest one, remove others.
-  filtered_names = names[:]
-  for name in names:
-    for other_name in names:
-      if name == other_name:
-        continue
-      if name in other_name:
-        filtered_names.remove(name)
-  
-  # Now no literal duplicate, but may still have cases lile: ['ETHEREUM', 'ETH']
-  # Continue dedup
-  final_names = set()
-  for name in filtered_names:
-    if name in synonyms:
-      name = synonyms[name]
-    final_names.add(name)
-
-  for name in final_names:
-    if name not in crypto_stats:
-      continue 
-    price = crypto_stats[name]
-    msg.chat.send(price)
+  return result
 
 
-def refresh_crypto_price():
-  response = requests.get(coinstats_url)
-  if not response.ok or 'coins' not in response.json():
-    return
-  for entry in response.json()['coins']:
-    symbol = str(entry['symbol']).upper()
-    text = crypto_info_formatter(entry)
-    crypto_stats[symbol] = text
-  last_update = time.time()
-
-
-def get_synonyms():
-  response = requests.get(coinstats_url)
+def refresh():
+  response = requests.get(COINSTATS_URL)
   if not response.ok or 'coins' not in response.json():
     return
   for entry in response.json()['coins']:
     symbol = str(entry['symbol']).upper()
     name = str(entry['name']).upper()
-    synonyms[name] = symbol
-
-  # TOP 18 coins' common Chinese names
-  synonyms[u'比特币'] = 'BTC'
-  synonyms[u'以太坊'] = 'ETH'
-  synonyms[u'瑞波币'] = 'XRP'
-  synonyms[u'瑞波'] = 'XRP'
-  synonyms[u'比特现金'] = 'BCH'
-  synonyms[u'柚子'] = 'EOS'
-  synonyms[u'恒星币'] = 'XLM'
-  synonyms[u'莱特币'] = 'LTC'
-  synonyms[u'泰达币'] = 'USDT'
-  synonyms[u'波场'] = 'TRX'
-  synonyms[u'波场币'] = 'TRX'
-  synonyms[u'艾达币'] = 'ADA'
-  synonyms[u'卡尔达诺'] = 'ADA'
-  synonyms[u'艾欧塔'] = 'MIOTA'
-  synonyms[u'埃欧塔'] = 'MIOTA'
-  synonyms[u'币安币'] = 'BNB'
-  synonyms[u'门罗币'] = 'XMR'
-  synonyms[u'达世币'] = 'DASH'
-  synonyms[u'新经币'] = 'XEM'
-  synonyms[u'以太币'] = 'ETC'
-  synonyms[u'以太经典'] = 'ETC'
-  synonyms[u'小蚁币'] = 'NEO'
-  synonyms[u'小蚁'] = 'NEO'
-
-  # Other interesting coins
-  synonyms[u'狗狗币'] = 'DOGE'
-  synonyms[u'狗币'] = 'DOGE'
-  synonyms[u'火币'] = 'HT'
-  synonyms[u'火币积分'] = 'HT'
+    name2symbol[name] = symbol
+    symbol2stats[symbol] = stats_formatter(entry)
 
 
-def crypto_info_formatter(json):
+def stats_formatter(json):
   symbol = json['symbol']
   price = json['price']
   name = json['name']
   rank = json['rank']
   market_cap = json['marketCap']
-  priceChange1h = str(json['priceChange1h'])
-  priceChange1d = str(json['priceChange1d'])
-  priceChange1w = str(json['priceChange1w'])
+  price_change_1h = str(json['priceChange1h'])
+  price_change_1d = str(json['priceChange1d'])
+  price_change_1w = str(json['priceChange1w'])
 
-  price = float(price)
-  if price < 1.0 and price > 0.0:
-    n_pow = math.ceil(float(-math.log(price, 10)))
-    you_xiao_shu_zi = 5
-    need_pow = n_pow + you_xiao_shu_zi - 1
-    price = int(price * 10 ** need_pow) / float(10 ** need_pow)
-  if price >= 1.0:
-    trailing = price - int(price)
-    trailing = int(trailing * 1000) / 1000.0
-    trailing = str(trailing)
-    trailing = trailing[1:min(len(trailing), 5)]
-    price = str(int(price)) + trailing
+  price = prettify_price(price)
+  price_change_1h = prettify_price_change(price_change_1h) 
+  price_change_1d = prettify_price_change(price_change_1d) 
+  price_change_1w = prettify_price_change(price_change_1w) 
+  market_cap = prettify_market_cap(market_cap)
 
-  if market_cap >= 100000000:
-    market_cap = str(int(market_cap / 100000000)) + "亿"
-  elif market_cap >= 10000:
-    market_cap = str(int(market_cap / 10000)) + "万"
-  else:
-    market_cap = "不到1万"
-    
-  if priceChange1h.startswith('-'):
-    priceChange1h += '%↓'
-  else:
-    priceChange1h = '+' + priceChange1h + '%↑'
-    
-  if priceChange1d.startswith('-'):
-    priceChange1d += '%↓'
-  else:
-    priceChange1d = '+' + priceChange1d + '%↑'
-    
-  if priceChange1w.startswith('-'):
-    priceChange1w += '%↓'
-  else:
-    priceChange1w = '+' + priceChange1w + '%↑'
+  return REPLY_TEMPLATE.format(
+                          symbol, 
+                          name, 
+                          price, 
+                          market_cap, 
+                          rank, 
+                          price_change_1h, 
+                          price_change_1d, 
+                          price_change_1w)
 
-  return reply_template.format(symbol, name, price, market_cap, rank, priceChange1h, priceChange1d, priceChange1w)
 
+def prettify_price(price):
+  price = str(price)
+  accuracy_digits = 6
+  parts = price.split('.')
+  if len(parts) != 2:
+    return price
+  int_part, frac_part = parts[0], parts[1]
+  if len(int_part) >= accuracy_digits:
+    return int_part
+  elif int_part != '0':
+    remaining_digits = accuracy_digits - len(int_part)
+    frac_part = frac_part[:min(len(frac_part), remaining_digits)]
+    return int_part + '.' + frac_part
+  else:
+    non_zeros = str(int(frac_part))
+    num_of_zeros = len(frac_part) - len(non_zeros)
+    non_zeros = non_zeros[:min(6, len(non_zeros))]
+    frac_part = '0' * num_of_zeros + non_zeros
+    return int_part + '.' + frac_part
+
+
+def prettify_price_change(price_change):
+  if price_change.startswith('-'):
+    return price_change + '%↓'
+  else:
+    return '+' + price_change + '%↑'
+
+
+def prettify_market_cap(market_cap):
+  market_cap = int(market_cap)
+  market_cap_str = str(market_cap)
+  digits = len(market_cap_str)
+
+  if (digits <= 4):
+    return "不到1万"
+  useful_digits = market_cap_str[:4]
+  if market_cap >= 10 ** 16:
+    return market_cap
+  elif market_cap >= 10 ** 12:
+    point_pos = digits - 12
+    return useful_digits[:point_pos] + '.' + useful_digits[point_pos:] + "万亿"
+  elif market_cap >= 10 ** 8:
+    point_pos = digits - 8
+    return useful_digits[:point_pos] + '.' + useful_digits[point_pos:] + "亿"
+  else:
+    point_pos = digits - 4
+    return useful_digits[:point_pos] + '.' + useful_digits[point_pos:] + "万"
 
 
 if __name__ == '__main__':
-  get_synonyms()
   while True:
-    refresh_crypto_price()
-    time.sleep(30)
+    refresh()
+    time.sleep(60)
