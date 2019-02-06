@@ -121,14 +121,16 @@ def refresh():
     rank = entry['rank']
     if rank <= 20:
       price_change_1d = entry['priceChange1d']
-      top20_summary[price_change_1d] = '{}      {}      {}'.format( 
+      price = entry['price']
+      top20_summary[price_change_1d] = '{}     {}   ${}   {}'.format( 
                                          symbol, 
                                          prettify_price_change(str(price_change_1d)),
+                                         prettify_price(str(price)),
                                          rank)
 
   global top20_summary_str
   top20_summary_str = (u'前20大币种24小时涨跌排名\n' + '-' * 25 + '\n' + 
-                       u'币种      涨跌幅      市值排名\n' +
+                       u'币种          涨跌          价格    市值#\n' +
                        '\n'.join(top20_summary[k] for k in 
                                  sorted(top20_summary.keys(), reverse=True)) + 
                        '\n' + '-' * 25 + '\n' + pretty_yesterday_short +
@@ -166,8 +168,8 @@ def stats_formatter(entry, pretty_now):
 
 
 def prettify_price(price):
+  accuracy_digits = 4 if float(price) < 1000.0 else 7 
   price = str(price)
-  accuracy_digits = 6
   parts = price.split('.')
   if len(parts) != 2:
     return price
@@ -177,13 +179,19 @@ def prettify_price(price):
   elif int_part != '0':
     remaining_digits = accuracy_digits - len(int_part)
     frac_part = frac_part[:min(len(frac_part), remaining_digits)]
-    return int_part + '.' + frac_part
+    if frac_part != '':
+      return int_part + '.' + frac_part
+    else:
+      return int_part
   else:
     non_zeros = str(int(frac_part))
     num_of_zeros = len(frac_part) - len(non_zeros)
-    non_zeros = non_zeros[:min(6, len(non_zeros))]
+    non_zeros = non_zeros[:min(accuracy_digits, len(non_zeros))]
     frac_part = '0' * num_of_zeros + non_zeros
-    return int_part + '.' + frac_part
+    if frac_part != '':
+      return int_part + '.' + frac_part
+    else:
+      return int_part
 
 
 def prettify_price_change(price_change):
@@ -201,17 +209,24 @@ def prettify_market_cap(market_cap):
   if (digits <= 4):
     return "不到1万"
   useful = market_cap_str[:4]
+  suffix = None
   if market_cap >= 10 ** 16:
     return market_cap
   elif market_cap >= 10 ** 12:
     point_pos = digits - 12
-    return useful[:point_pos] + '.' + useful[point_pos:] + "万亿"
+    suffix = "万亿"
   elif market_cap >= 10 ** 8:
     point_pos = digits - 8
-    return useful[:point_pos] + '.' + useful[point_pos:] + "亿"
+    suffix = "亿"
   else:
     point_pos = digits - 4
-    return useful[:point_pos] + '.' + useful[point_pos:] + "万"
+    suffix = "万"
+  int_part = useful[:point_pos]
+  frac_part = useful[point_pos:]
+  if frac_part != '':
+    return int_part + '.' + frac_part + suffix
+  else:
+    return int_part + suffix
 
 
 if __name__ == '__main__':
