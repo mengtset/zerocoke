@@ -1,0 +1,698 @@
+    1  exit
+    2  rm ~/.bash_history
+    3  ls
+    4  sudo vi /etc/ssh/sshd_config
+    5  exit
+    6  sudo /etc/init.d/ssh restart
+    7  service ssh restart
+    8  exit
+    9  ls
+   10  ifconfig
+   11  which python
+   12  which pip
+   13  pip install shadowsocks
+   14  vi /home/ubuntu/.pip/pip.log
+   15  sudo pip install shadowsocks
+   16  ssserver
+   17  ssserver -p 443 -k across_the_gfw --user google -d start
+   18  sudo ssserver -p 443 -k across_the_gfw --user google -d start
+   19  sudo ssserver -d stop
+   20  sudo ssserver -p 443 -k across_the_gfw --user google -d start
+   21  sudo less /var/log/shadowsocks.log
+   22  ls
+   23  sudo tail /var/log/shadowsocks.log
+   24  sudo tail -f /var/log/shadowsocks.log
+   25  sudo ssserver -p 443 -k across_the_gfw --user google -d start
+   26  sudo ssserver -p 443 -k across_the_gfw --user nobody -d start
+   27  sudo ssserver -d stop
+   28  sudo ssserver -p 443 -k across_the_gfw --user nobody -d start
+   29  exit
+   30  sudo ll /var/log/shadowsocks.log
+   31  sudo ls /var/log/shadowsocks.log
+   32  sudo ls -l /var/log/shadowsocks.log
+   33  sudo du /var/log/shadowsocks.log
+   34  sudo du -h /var/log/shadowsocks.log
+   35  alias ll
+   36  ll
+   37  ll /var/log/shadowsocks.log
+   38  exit
+   39  vi ~/.ssh/authorized_keys
+   40  exit
+   41  ifconfig
+   42  sudo apt-get update
+   43  sudo apt-get upgrade
+   44  sudo apt autoremove
+   45  sudo apt-get autoremove
+   46  ls
+   47  which python
+   48  gcc -v
+   49  sudo apt-get install clang
+   50  pwd
+   51  cat /etc/*release
+   52  hostname
+   53  su
+   54  hostname
+   55  uname
+   56  uname -a
+   57  uname -u
+   58  uname -x
+   59  uname -m
+   60  tail -f /var/log/shadowsocks.log
+   61  sudo du -h /
+   62  sudo du -h -d 0 /
+   63  sudo du -h -d 1 /
+   64  cat /etc/cpuinfo
+   65  cat /proc/cpuinfo
+   66  htop
+   67  clang
+   68  clang -v
+   69  ls
+   70  git
+   71  jav
+   72  java
+   73  aptitude
+   74  ls
+   75  exit
+   76  cat /proc/cpuinfo
+   77  tail -f /var/log/shadowsocks.log
+   78  du -h /var/log/shadowsocks.log
+   79  vi ~/.zshrc
+   80  sudo apt-get install clang
+   81  clang -v
+   82  which python
+   83  which pip
+   84  python -V
+   85  exit
+   86  vi ~/.ssh/authorized_keys
+   87  exit
+   88  tail -f /var/log/shadowsocks.log
+   89  du -h /var/log/shadowsocks.log
+   90  cp /var/log/shadowsocks.log shadowsocks.log.snapshot
+   91  ls
+   92  vi shadowsocks.log.snapshot
+   93  du -h /var/log/shadowsocks.log
+   94  ls
+   95  sudo find / -name "*shadowsocks*"
+   96  sudo find / -name "*shadowsock*"
+   97  sudo find / -name "*shadowsocks*"
+   98  cd /usr/local/lib/python2.7/dist-packages/shadowsocks
+   99  ls
+  100  cd ..
+  101  ls
+  102  sudo cp -r shadowsocks ~/
+  103  cd
+  104  ls
+  105  mv shadowsocks shadowsocks-code
+  106  ls
+  107  cd shadowsocks-code
+  108  ls
+  109  ll
+  110  ls
+  111  vi server.py
+  112  ls
+  113  cd
+  114  ls
+  115  vi ~/.vimrc
+  116  mv vimrc .vimrc
+  117  vi ~/.vimrc
+  118  vi ~/.zshrc
+  119  ls
+  120  cd shadowsocks-code
+  121  ls
+  122  vi manager.py
+  123  ls
+  124  vi daemon.py
+  125  vi shell.py
+  126  ls
+  127  tail -f /var/log/shadowsocks.log
+  128  grep .
+  129  cat * | grep INFO
+  130  cat *
+  131  cat *.py
+  132  cat *.py | grep INFO
+  133  cat *.py | grep connecting
+  134  ls
+  135  vi local.py
+  136  find -nsr .
+  137  grep -nsr *
+  138  grep -nsr * _handle_stage_connecting
+  139  grep -nsr *.py _handle_stage_connecting
+  140  ls
+  141  vi server.py
+  142  vi manager.py
+  143  vi local.py
+  144  vi common.py
+  145  vi asyncdns.py
+  146  vi daemon.py
+  147  cd crypto
+  148  ls
+  149  vi util.py
+  150  cd ..
+  151  ls
+  152  vi tcprelay.py
+  153  tail -f /var/log/shadowsocks.log
+  154  ls
+  155  tail -f /var/log/shadowsocks.log
+  156  du -h /var/log/shadowsocks.log
+  157  tail -f /var/log/shadowsocks.log
+  158  ls
+  159  pwd
+  160  tail -f /var/log/shadowsocks.log
+  161  exit
+  162  time
+  163  date
+  164  sudo dpkg-reconfigure tzdata
+  165  date
+  166  tail -f /var/log/shadowsocks.log
+  167  du -h /var/log/shadowsocks.log
+  168  tail -f /var/log/shadowsocks.log
+  169  curl --help
+  170  sudo apt-get install clang
+  171  sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove
+  172  ls
+  173  gcc -v
+  174  java -v
+  175  sudo apt-get install default-jre default-jdk
+  176  java -v
+  177  java -version
+  178  javac --version
+  179  javac -version
+  180  go version
+  181  sudo apt-get install go
+  182  sudo apt-get install golang
+  183  go
+  184  go version
+  185  clang -v
+  186  gcc -v
+  187  cat /etc/*release
+  188  which python
+  189  sudo reboot
+  190  sudo ssserver -p 443 -k across_the_gfw --user nobody -d start
+  191  tail -f /var/log/shadowsocks.log
+  192  du -h /var/log/shadowsocks.log
+  193  ls
+  194  rm shadowsocks.log.snapshot
+  195  ls
+  196  htop
+  197  ifconfig
+  198  ps
+  199  ps -aux
+  200  o
+  201  oo
+  202  ooo
+  203  p
+  204  sp
+  205  l
+  206  au
+  207  cat
+  208  nc
+  209  netcat
+  210  reboot
+  211  g4d
+  212  g4
+  213  google
+  214  curl www.google.com
+  215  curl www.google.com >> googol.html
+  216  ls
+  217  vi googol.html
+  218  vi ~/.vimrc
+  219  vi googol.html
+  220  ls
+  221  exit
+  222  ls
+  223  vi zpang.py
+  224  ls
+  225  chmod +x zpang
+  226  chmod +x zpang.py
+  227  vi zpang.py
+  228  ./zpang.py
+  229  vi zpang.py
+  230  ./zpang.py
+  231  vi zpang.py
+  232  ./zpang.py
+  233  vi zpang.py
+  234  ./zpang.py
+  235  vi zpang.py
+  236  ./zpang.py
+  237  vi zpang.py
+  238  ./zpang.py
+  239  vi zpang.py
+  240  ./zpang.py
+  241  vi zpang.py
+  242  ./zpang.py
+  243  vi zpang.py
+  244  ./zpang.py
+  245  vi zpang.py
+  246  ./zpang.py
+  247  vi zpang.py
+  248  ./zpang.py
+  249  vi zpang.py
+  250  ./zpang.py
+  251  vi zpang.py
+  252  ./zpang.py
+  253  vi zpang.py
+  254  ./zpang.py
+  255  vi zpang.py
+  256  ./zpang.py
+  257  vi zpang.py
+  258  ./zpang.py
+  259  vi zpang.py
+  260  ./zpang.py
+  261  vi zpang.py
+  262  ./zpang.py
+  263  vi zpang.py
+  264  ./zpang.py
+  265  vi zpang.py
+  266  ./zpang.py
+  267  vi zpang.py
+  268  ./zpang.py
+  269  vi 
+  270  vi zpang.py
+  271  ./zpang.py
+  272  vi zpang.py
+  273  ./zpang.py
+  274  vi zpang.py
+  275  ./zpang.py
+  276  vi zpang.py
+  277  ./zpang.py
+  278  vi zpang.py
+  279  ./zpang.py
+  280  vi zpang.py
+  281  ./zpang.py
+  282  vi zpang.py
+  283  ./zpang.py
+  284  vi zpang.py
+  285  ./zpang.py
+  286  vi zpang.py
+  287  ./zpang.py
+  288  vi zpang.py
+  289  ./zpang.py
+  290  vi zpang.py
+  291  ./zpang.py
+  292  vi zpang.py
+  293  ./zpang.py
+  294  vi zpang.py
+  295  ./zpang.py
+  296  vi zpang.py
+  297  ./zpang.py
+  298  vi zpang.py
+  299  ./zpang.py
+  300  vi zpang.py
+  301  ./zpang.py
+  302  vi zpang.py
+  303  ifconfig
+  304  tail -f /var/log/shadowsocks.log
+  305  du -h /var/log/shadowsocks.log
+  306  exit
+  307  ls
+  308  vi zpang.py
+  309  ./zpang.py
+  310  vi zpang.py
+  311  ./zpang.py
+  312  vi zpang.py
+  313  ./zpang.py
+  314  ls
+  315  exit
+  316  ls
+  317  du -h /var/log/shadowsocks.log
+  318  tail -f /var/log/shadowsocks.log
+  319  exit
+  320  curl https://emsp.cisco.com/s/data.do\?pageId\=%20155648\&siteId\=11889\&platform\=ajax\&wk\=TDJ1kNbNryTuhzgXZ\&authT%20ype\=token\&token\=1234
+  321  curl https://emsp.cisco.com/s/data.do?pageId=%20155648&siteId=11889&platform=ajax&wk=TDJ1kNbNryTuhzgXZ&authT%20ype=token&token=1234'
+  322  curl 'https://emsp.cisco.com/s/data.do?pageId=%20155648&siteId=11889&platform=ajax&wk=TDJ1kNbNryTuhzgXZ&authT%20ype=token&token=1234'
+  323  ipython
+  324  sudo apt-get install ipython
+  325  ipython
+  326  exit
+  327  vi ~/.ssh/authorized_keys
+  328  exit
+  329  du -h /var/log/shadowsocks.log
+  330  tail -f /var/log/shadowsocks.log
+  331  vi /var/log/shadowsocks.log
+  332  vi ~/.zsh_history
+  333  history | grep ssser
+  334  ssserver --help
+  335  cat /etc/*-release
+  336  sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove
+  337  ls
+  338  ping us-east-01.qiangwai.world
+  339  ping qiangwai.world
+  340  ping asia-northeast-01.qiangwai.world
+  341  ping qiangwai.world
+  342  ping www.qiangwai.world
+  343  exit
+  344  ls
+  345  git clone git@github.com:uyizgnod/zerocoke.git
+  346  ssh-keygen -t rsa
+  347  cat ~/.ssh/id_rsa.pub
+  348  git clone git@github.com:uyizgnod/zerocoke.git
+  349  ls
+  350  cd zerocoke
+  351  ls
+  352  cd wechat_bot
+  353  ls
+  354  exit
+  355  cd zerocoke/wechat_bot
+  356  screen -dmS little_a
+  357  screen -ls
+  358  exit
+  359  screen -ls
+  360  screen -r little_a
+  361  pwd
+  362  python little_a.py
+  363  pip install -U wxpy
+  364  sudo pip install -U wxpy
+  365  python little_a.py
+  366  ls
+  367  exit
+  368  screen -ls
+  369  exit
+  370  screen -dmS little_a
+  371  screen -r little_a
+  372  cd zerocoke/wechat_bot
+  373  python little_a.py
+  374  ls
+  375  rm QR.png
+  376  ls
+  377  python little_a.py
+  378  git add --all
+  379  git commit -m "QR.png"
+  380  git config --global user.name "Ziyu DOng"
+  381  git config --global user.email ziyu.developer@gmail.com
+  382  git commit -m "QR.png"
+  383  git push or
+  384  git push origin master
+  385  python little_a.py
+  386  sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove
+  387  pip update
+  388  pip upgrade
+  389  pip install --upgrade pip
+  390  sudo pip install --upgrade pip
+  391  python little_a.py
+  392  pip upgrade --all
+  393  sudo pip upgrade --all
+  394  sudo pip update --all
+  395  sudo pip update 
+  396  sudo pip upgrade
+  397  sudo pip update
+  398  sudo pip install --upgrade
+  399  sudo pip install --upgrade pip
+  400  pip install --upgrade pip
+  401  ls
+  402  rm QR.png
+  403  exit
+  404  ls
+  405  cd zerocoke/wechat_bot
+  406  ls
+  407  vi little_a.py
+  408  python little_a.py
+  409  ls
+  410  screen -ls
+  411  ls
+  412  exit
+  413  ls
+  414  cd zerocoke
+  415  ls
+  416  git status
+  417  git checkout -- wechat_bot/
+  418  git status
+  419  git pull origin master
+  420  ls
+  421  python wechat/bitmeow.py
+  422  python3 wechat/bitmeow.py
+  423  pip3 install requests
+  424  sudo apt-get install python3 python3-pip
+  425  pip3 install requests
+  426  python3 wechat/bitmeow.py
+  427  ls
+  428  vi wechat/bitmeow.py
+  429  ls
+  430  cd
+  431  cd -
+  432  ls
+  433  python3 wechat/bitmeow.py
+  434  ls
+  435  cd wxpy
+  436  ls
+  437  cd ..
+  438  ls
+  439  python3 wechat/bitmeow.py
+  440  ls
+  441  vi wechat/bitmeow.py
+  442  python3 wechat/bitmeow.py
+  443  pwd
+  444  ls
+  445  tree
+  446  sudo apt-get install tree
+  447  tree
+  448  ls
+  449  ipython
+  450  ipython3
+  451  sudo apt-get install ipython3
+  452  ipython3
+  453  sudo pip3 install itchat
+  454  ipython3
+  455  python wechat/bitmeow.py
+  456  python3 wechat/bitmeow.py
+  457  ipython 
+  458  git status
+  459  ls
+  460  cd wechat
+  461  ls
+  462  python bitmeow.py
+  463  pip uninstall wxpy
+  464  sudo pip uninstall wxpy
+  465  ls
+  466  python3 bitmeow.py
+  467  ls
+  468  rm hongbao.py __init__.py
+  469  mv bitmeow.py ..
+  470  cd ..
+  471  ls
+  472  rm -rf wechat
+  473  python3 bitmeow.py
+  474  sudo pip3 install -U wxpy
+  475  python3 bitmeow.py
+  476  ls
+  477  vi bitmeow.py
+  478  python3 bitmeow.py
+  479  ls
+  480  mv wxpy wxpy3
+  481  git clone git@github.com:youfou/wxpy.git
+  482  ls
+  483  cd wxpy
+  484  ls
+  485  cd ..
+  486  ls
+  487  rm -r wxpy3
+  488  ls
+  489  mv wxpy wxpy2
+  490  vi bitmeow.py
+  491  python bitmeow.py
+  492  ls
+  493  cd wxpy2
+  494  ls
+  495  mv wxpy ..
+  496  cd ..
+  497  ls
+  498  rm -rf wxpy2
+  499  ls
+  500  mv wxpy wxpy2
+  501  ls
+  502  git status
+  503  git add --a
+  504  git add --all
+  505  ls
+  506  git status
+  507  python bitmeow.py
+  508  cd wxpy2
+  509  ls
+  510  cd api
+  511  ls
+  512  vi consts.py
+  513  ls
+  514  vi bot.py
+  515  cd ..
+  516  ls
+  517  cd ..
+  518  ls
+  519  mv wxpy2 wxpt
+  520  mv wxpt wxpy
+  521  ls
+  522  vi bitmeow.py
+  523  sudo pip3 uninstall wxpy
+  524  python bitmeow.py
+  525  python3 bitmeow.py
+  526  ls
+  527  vi bitmeow.py
+  528  python3 bitmeow.py
+  529  ls
+  530  sudo find / -name wxpy
+  531  python bitmeow.py
+  532  which python
+  533  python -V
+  534  python3 bitmeow.py
+  535  ls
+  536  vi bitmeow.py
+  537  ls
+  538  sudo apt update && sudo apt upgrade && sudo apt autoremove
+  539  ls
+  540  sudo apt update && sudo apt upgrade && sudo apt autoremove
+  541  ls
+  542  cd zerocoke
+  543  ls
+  544  sudo find / -name wxpy
+  545  ls
+  546  vi bitmeow.py
+  547  ls
+  548  cp bitmeow.py hongbao.py
+  549  ls
+  550  vi hongbao.py
+  551  python3 hongbao.py
+  552  sudo pip3 install itchat
+  553  sudo pip3 install --upgrade itchat
+  554  pip3 install --upgrade itchat
+  555  pip3 install itchat
+  556  pip3 install -U itchat
+  557  python3 hongbao.py
+  558  cd zerocoke
+  559  ls
+  560  python3 hongbao.py
+  561  ls
+  562  cd zerocoke
+  563  ls
+  564  git status
+  565  git add --all
+  566  git status
+  567  ls
+  568  git status
+  569  vi hongbao.py
+  570  ls
+  571  git status
+  572  git add --all
+  573  vi wxpy/api/messages/sent_message.py
+  574  ls
+  575  git diff wxpy
+  576  git diff wxpy/api/messages/send_message.py
+  577  git reset HEAD wxpy/
+  578  git status
+  579  git diff
+  580  ls
+  581  git status
+  582  git checkout -- wxpy/
+  583  git status
+  584  git commit -m "Move runnable file to root dir"
+  585  git status
+  586  git push origin master
+  587  ls
+  588  exit
+  589  ls
+  590  ping wx.qq.com
+  591  ls
+  592  cd zerocoke
+  593  ls
+  594  git pull origin master
+  595  ls
+  596  python3 bitmeow.py
+  597  sudo pip3 install pytz
+  598  python3 bitmeow.py
+  599  screen -dmS bitmeow
+  600  screen -r bitmeow
+  601  ls
+  602  python3 bitmeow.py
+  603  screen -r bitmeow
+  604  exit
+  605  screen -ls
+  606  screen -r bitmeow
+  607  python3 bitmeow.py
+  608  exit
+  609  ls
+  610  screen
+  611  exit
+  612  screen -ls
+  613  screen -r bitmeow
+  614  ls
+  615  python bitmeow.py
+  616  ls
+  617  rm -r expy
+  618  rm -r wxpy
+  619  python3 bitmeow.py
+  620  pip3 install -U wxpy
+  621  sudo pip3 install -U wxpy
+  622  python3 bitmeow.py
+  623  ls
+  624  git status
+  625  git add --all
+  626  git status
+  627  git commit -m "Remove local wxpy"
+  628  git status
+  629  git push origin master
+  630  git status
+  631  vi demo.py
+  632  ls
+  633  rm demo.py
+  634  git status
+  635  git add --all
+  636  git commit -m "Remove demo.py"
+  637  git push origin master
+  638  ls
+  639  python3 bitmeow.py
+  640  exit
+  641  ls
+  642  screen -r
+  643  ls
+  644  git status
+  645  git pull origin master
+  646  screen -r
+  647  ls
+  648  vi bitmeow.py
+  649  python3 bitmeow.py
+  650  ls
+  651  vi bitmeow.py
+  652  python3 bitmeow.py
+  653  ls
+  654  vi bitmeow.py
+  655  python3 bitmeow.py
+  656  vi bitmeow.py
+  657  python3 bitmeow.py
+  658  ;s
+  659  vi bitmeow.py
+  660  ls
+  661  python bitmeow.py
+  662  python3 bitmeow.py
+  663  vi bitmeow.py
+  664  python3 bitmeow.py
+  665  vi bitmeow.py
+  666  python3 bitmeow.py
+  667  vi bitmeow.py
+  668  python3 bitmeow.py
+  669  vi bitmeow.py
+  670  git status
+  671  git add --all
+  672  python3 bitmeow.py
+  673  vi bitmeow.py
+  674  python3 bitmeow.py
+  675  ls
+  676  vi bitmeow.py
+  677  python3 bitmeow.py
+  678  ls
+  679  git status
+  680  git add --all
+  681  git status
+  682  git commit -m "Optimize #top reply"
+  683  git push origin master
+  684  python3 bitmeow.py
+  685  exit
+  686  screen -r
+  687  python3 bitmeow.py
+  688  exit
+  689  screen -r
+  690  python3 bitmeow.py
+  691  exit
+  692  ls
+  693  screen -ls
+  694  screen -r
+  695  ls
+  696  python3 bitmeow.py
+  697  exit
+  698  ls
