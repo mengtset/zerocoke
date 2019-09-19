@@ -81,6 +81,6 @@ if __name__ == '__main__':
   price_fetcher = PriceFetcher()
   while True:
     price_fetcher._refresh()
-    price_fetcher._iterate_table(price_fetcher.statistics_table_name)
+    # price_fetcher._iterate_table(price_fetcher.statistics_table_name)
     time.sleep(20)
 
