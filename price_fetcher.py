@@ -11,7 +11,7 @@ class PriceFetcher(object):
   def __init__(self):
     self.coinstats_url = (
         'https://api.coinstats.app/'
-        'public/v1/coins?skip=0&limit=10')
+        'public/v1/coins?skip=0&limit=200')
     self.last_success_update_time_isoformat = None
     self.conn = sqlite3.connect('coinstats.db')
     self.cursor = self.conn.cursor()
