@@ -1,2 +1,6 @@
 *.pyc
 *.db
+*.rdb
+*.pkl
+logs/*
+.vscode/*
